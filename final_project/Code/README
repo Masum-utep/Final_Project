@@ -1,0 +1,23 @@
+******************************Final Project*************************
+*********************************Math 5370***************************
+**********Iterative method for solving system of linear equation******
+
+This program computes the unknowns for system of linear equation. We have two 
+coefficient matrix and constant matrix in seperate file. Those are problem1.dat
+and problem2.dat. These two file contains the matrix dimension and elements as
+ well. 
+ 
+ Please make sure that in your folder these four items are available:
+ 	1. Gauss.cpp
+ 	2. Gauss_header.h
+ 	3. problem1.dat
+ 	4. problem2.dat
+ To compile the code you need to type following in your terminal:
+ 
+ $ g++ -o Gauss Gauss.cpp
+ 
+ And to run the output file:
+ 
+ $ ./Gauss
+ 
+ Thank you very much to play with this.

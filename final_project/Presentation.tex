@@ -1,0 +1,587 @@
+\documentclass[12pt]{beamer}
+\usetheme{Antibes}
+\usepackage[utf8]{inputenc}
+\usepackage[boxruled,linesnumbered]{algorithm2e}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usefonttheme[onlymath]{serif}
+%\usepackage{beamerbasercs}
+
+\begin{document}
+	\author[Kazi Md Masum Billah ]{\scriptsize  \\[0.17cm]\ Kazi Md Masum Billah \\ Mary Mackay}
+	\title[]{\small Final Project\\
+	Math 5370\\
+	~\\
+	\Large Iterative Methods for Solving Linear System}
+	%\logo{}
+	\institute{ The University of Texas at El Paso (UTEP)\\ El Paso,  Texas 79968, USA }
+	\date{November 24, 2015}
+
+	%\setbeamercovered{transparent}
+	\setbeamertemplate{navigation symbols}{} 
+	\maketitle
+	
+	\section[Outline]{}
+	\begin{frame}{ }
+	\tableofcontents
+    \end{frame}	
+	% % % % % % % % % % % % % % % % % % % % %
+	\pagenumbering{roman}
+	\section{Introduction}
+	
+	\begin{frame}
+	\begin{itemize}
+	\item Gauss Elimination: It uses the successive row reduction.
+	\begin{itemize}
+	\item Forward substitution.
+	\item Backward substitution
+	
+	\end{itemize}
+	\item Inverse matrix method can be implemented to solve the system of linear equation.
+	\item LU factorization provides the more convenient way to solve the larger system of linear equation. It also involves the forward and backward substitution after decomposing the coefficient matrix in to lower and upper triangular matrix. 
+    	\item Algorithm for Gauss Elimination is following:\\
+	\end{itemize}
+	\end{frame}
+	\section{Methodology}
+	%-------------------------------------------------------
+	\subsection{Gauss Elimination}
+	\begin{frame}
+	%-------------------------------------------------------   
+\begin{algorithm}[H]
+ \For{$k=1$ to $n-1$}{
+		\For{i=$k+1$ to $n$}{
+        
+	    		\For{$j=k+1$ to $n+1$}{
+			    		$a[i][j] = a[i][j] $–$ a[i][k] /a[k][k] * a[k][j]$\;
+					    \do Compute $x[n] = a[n][n+1]/a[n][n]$\;
+        		}}}
+        
+ 
+	    \For{$k=n-1$ to $1$}{
+	    		sum $= 0$\;
+                }
+	    	\For{$j=k+1$ to $n$}{
+	    		\do sum $=$ sum $+ a[k][j] * x[j]$\;
+	    		\do $x[k] = 1/a[k][k] * (a[k][n+1] $– sum$)$\;
+                }
+	    		  \end{algorithm}	
+		
+			\end{frame}
+		
+	
+% % % % % % % % % % % % % % % % % % % % %
+% Inverse Matrix Start
+\subsection{Inverse Matrix}
+\begin{frame}
+\begin{itemize}
+\item Inverse Matrix:
+To find the inverse matrix at first an augmented matrix created. Then it uses the Gauss elimination algorithm.\\
+\item Algorithm to find the inverse matrix:
+\begin{itemize} 
+\item do for i=0 to number of rows\\
+ do for j=0 to number of rows\\
+Gauss[i][j]=a[i][j] 
+\item do for i=0 to number of rows \\
+ do for j=number of rows to 2 times of number of rows\\
+ if(i+number of rows==j)\\
+Gauss[i][j]=1\\
+else\\
+Gauss[i][j]=0\\
+\item do Gaussian elimination\\
+Save inverse matrix.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+% Inverse Matrix End
+
+
+%		LU Factorization Start	
+% % % % % % % % % % % % % % % % % % % % % %
+% LU factorization algorithm
+\subsection{LU Factorization}
+
+% % % % % % % % % % % % % % % %555
+	
+
+	\begin{frame}
+	\begin{itemize}
+		\item LU Factorization refers to the factorization of coefficient Matrix A.\\
+	    i.e. A=LU, Where L is the lower triangular Matrix and U is the Upper Triangular Matrix.
+	  \item The expression of system of linear Expression will be 
+	Ax=b.
+	\[
+	A=
+	  \begin{bmatrix}
+	    a_{11} & a_{12} & .. & .. & a_{1n}\\
+	    a_{21} & a_{22} & .. & .. & a_{2n}\\
+	    .. & .. & .. & .. & ..\\
+	    .. & .. & .. & .. & ..\\
+	    a_{n1} & a_{n2} & .. & .. & a_{nn}\\
+	  \end{bmatrix}
+	\]
+	
+	\begin{center}
+	$x^T=[x_1$   $x_2$   $..$   $..$   $x_n]$         
+	\ $b^T=[b_1$   $b_2$   $..$   $..$   $b_n]$  
+	\end{center}
+	\end{itemize}
+	\end{frame}
+	
+	
+	
+	
+	
+\begin{frame}
+\begin{algorithm}[H]
+\do Input elements of coefficient matrix A and Constant matrix b.
+\For{$k = 1$ to $n$}{			
+			\For{$s = 1$ to $k-1$}{
+			$L[k][k] * U[k][k]  = A[k][k]  - L[s][k]* U[s][k]$\;
+            }}
+\For{$j = k+1$ to $n$}{ 
+			\For{$s=1$ to $k-1$}{
+			$U[k][j] = (A[k][j] $–$ L[s][k] * U[s][k])/L[k][k]$\;
+            }}
+\For{$i = k+1$ to $n$}{
+			\For{$s =1$ to $k-1$}{
+			$L[i][k] = (A[i][k] $–$ L[i][s] * U[s][k])/U[k][k]$\;
+            }}
+Print out $L_{ij}$ and $U_{ij}$
+\end{algorithm}
+\end{frame}
+		
+		
+\begin{frame}
+\begin{itemize}
+\item LUx=b
+\item Compute Lower triangular Matrix and Upper triangular Matrix.\\
+\[
+\textrm{Lower Triangular Matrix}, L=
+\begin{bmatrix}
+l_{11} & 0 & 0 & .. & .. & .. & 0\\
+l_{21} & l_{22} & 0 & ..& ..& .. & 0\\
+.. & .. & .. & .. & .. & .. & ..\\
+.. & .. & .. & .. & .. & .. & ..\\
+l_{n1} & l_{n2} & l_{n3} & .. & .. & .. & l_{nn}
+	
+\end{bmatrix}
+\]  
+\[
+\textrm{Upper Triangular Matrix},  U=
+\begin{bmatrix}
+	u_{11} & u_{12} & u_{13} & .. & .. & .. & u_{1n}\\
+	0 & u_{22} & u_{23} & .. & .. & .. & u_{2n}\\
+	0 & 0 & u_{33} & .. & ..& .. & u_{3n}\\
+	.. & .. & .. & .. & .. & .. & ..\\
+	0 & 0 & .. & .. & .. & ..& u_{nn}
+\end{bmatrix}
+\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\begin{itemize}
+\item Now solve Ly=b for y vector.\\
+\begin{equation*}
+\begin{matrix}
+	\begin{bmatrix}
+	b_1\\ b_2\\ ..\\ ..\\ b_n
+	\end{bmatrix}
+=  
+	\begin{bmatrix}
+	l_{11} & 0 & 0 & .. & .. & .. & 0\\
+	l_{21} & l_{22} & 0 & ..& ..& .. & 0\\
+	.. & .. & .. & .. & .. & .. & ..\\
+	.. & .. & .. & .. & .. & .. & ..\\
+	l_{n1} & l_{n2} & l_{n3} & .. & .. & .. & l_{nn}
+	
+	\end{bmatrix}
+	  \times
+	  \begin{bmatrix}
+	 	y_1\\ y_2\\ ..\\ ..\\ y_n
+	 	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+\end{itemize}
+\end{center}
+\begin{center}
+\begin{itemize}
+\item Now solve Ly=b for y vector.\\
+\begin{equation*}
+\begin{matrix}
+	
+	\begin{bmatrix}
+	y_1\\ y_2\\ ..\\ ..\\ y_n
+	\end{bmatrix}
+=  
+	\begin{bmatrix}
+	u_{11} & u_{12} & u_{13} & .. & .. & .. & u_{1n}\\
+	0 & u_{22} & u_{23} & ..& ..& .. & u_2n\\
+	0 & 0 & u_{33} & .. & ..& .. & u_{3n}\\
+	.. & .. & .. & .. & .. & .. & ..\\
+	0 & 0 & .. & .. & .. & ..& u_{nn}
+	
+	\end{bmatrix}
+	  \times
+	  \begin{bmatrix}
+	 	x_1\\ x_2\\ ..\\ ..\\ x_n
+	 	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+\end{itemize}
+\end{center}
+\end{frame}
+
+	
+%		LU Factorization END	
+% % % % % % % % % % % % % % % % % % % % % % %
+% Problem start(1)
+\section{Problem Statement}
+\subsection{Problem a.}
+\begin{frame}
+\begin{itemize}
+\item Problem a.
+\begin{equation*}
+\textrm{Matrix }\ A =
+\begin{matrix}
+	\begin{bmatrix}
+	1 & 6 & 0 \\ 2 & 1 & 0 \\ 0 & 2 & 1 
+	\end{bmatrix}
+\end{matrix}
+\ \textrm{Matrix }\ b =
+\begin{matrix}
+	\begin{bmatrix}
+	3 \\ 1 \\ 1 
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+To solve this, we obtained and used the Lower and Upper matrices:
+\begin{equation*}
+L =
+\begin{matrix}
+	\begin{bmatrix}
+	1 & 0 & 0 \\ 2 & 1 & 0 \\ 0 & -0.18 & 1 
+	\end{bmatrix}
+\end{matrix}
+\ U =
+\begin{matrix}
+	\begin{bmatrix}
+	1 & 6 & 0 \\ 0 & -11 & 0 \\ 0 & 0 & 1
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+Alternatively, we obtained and used the inverse matrix:
+\begin{equation*}
+\begin{matrix}
+	\begin{bmatrix}
+	-0.0909091 & 0.545455 & 0\\	
+	0.181818 & -0.0909091 & -0\\	
+	-0.363636 &	0.181818 & 1
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+\end{itemize}
+\end{frame}
+% Problem end(1) % % % % % % % % % % % % % % % % % 
+% Problem start(2) % % % % % % % % % % % % % % % % 
+\subsection{problem b.}
+\begin{frame}
+\begin{itemize}
+\item Problem b.
+\begin{equation*}
+\textrm{Matrix }A =
+\begin{matrix}
+	\begin{bmatrix}
+	-1 & 1 & 0 & -3\\ 1 & 0 & 3 & 1 \\ 0 & 1 & -1 & -1 \\ 3 & 0 & 1 & 2\\ 
+	\end{bmatrix}
+\end{matrix}
+\ \textrm{Matrix }\ b =
+\begin{matrix}
+	\begin{bmatrix}
+	4 \\ 0 \\ 3 \\ 1
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+To solve this, the Lower and Upper matrices:
+\begin{equation*}
+L =
+\begin{matrix}
+	\begin{bmatrix}
+	1 &	0 &	0 &	0\\	-1 &	1 &	0 &	0\\	-0 &	1 &	1 &	0\\ -3 & 3 &	2 &	1
+	\end{bmatrix}
+\end{matrix}
+\ U =
+\begin{matrix}
+	\begin{bmatrix}
+	-1 & 1 & 0 & -3\\	
+	 0 & 1 & 3 & -2\\
+	 0 & 0 & -4 & 1\\
+	 0 & 0 & 0 & -3
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+And alternatively, the inverse matrix:
+\begin{equation*}
+\begin{matrix}
+	\begin{bmatrix}
+0.416667 &	-0.333333 &	-0.416667 &	0.583333\\	
+-0.583333 &	0.666667 &	1.58333 &	-0.416667\\
+0.0833333 &	0.333333 &	-0.0833333 & -0.0833333\\	
+-0.666667 &	0.333333 &	0.666667 &	-0.333333	
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+\end{itemize}
+\end{frame}
+
+
+% Problem end (2)
+% Problem start (3) % % % % % % % % % % % % % % % % 
+\subsection{problem c.}
+\begin{frame}
+\begin{itemize}
+\item Problem c.
+\[ \textrm{Matrix }\ A =
+  \begin{cases}
+   	a_{i,j}=0.01 & if \ 1\leq i \leq n-1, j=i.\\
+   	a_{i,j}=1 & if \ 1\leq i \leq n, j=n.\\
+   	a_{i,j}=-1 & if \ j\geq n.
+  \end{cases}
+\]
+\[ \textrm{Matrix }\ b =
+  \begin{cases}
+   	b_i=2.1-i & Where \ i=1,2.....,n\\
+   	b_n=2-n
+  \end{cases}
+\]
+\end{itemize}
+\end{frame}
+% % % % % % % % % % % % % % % % % % % % % % % % % % 
+\begin{frame}
+\begin{itemize}
+\item Lets, n=3; Then\\
+\begin{equation*}
+\textrm{Matrix }A =
+\begin{matrix}
+	\begin{bmatrix}
+	0.1 &	0 &	1\\	
+	-1 &	0.1 &	1\\	
+	-1 &	-1 &	1	 
+	\end{bmatrix}
+\end{matrix}
+\ \textrm{Matrix }\ b =
+\begin{matrix}
+	\begin{bmatrix}
+	2.1\\1.1\\-1
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+
+To solve this, the Lower and Upper matrices:
+\begin{equation*}
+L =
+\begin{matrix}
+	\begin{bmatrix}
+	1 &	0 &	0\\	
+	-10 &	1 &	0\\	
+	-10 &	-10 &	1
+	\end{bmatrix}
+\end{matrix}
+\ U =
+\begin{matrix}
+	\begin{bmatrix}
+	0.1	& 0 &	1\\	
+	0 &	0.1 &	11\\	
+	0 &	0 &	121	
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+And alternatively, the inverse matrix:
+\begin{equation*}
+\begin{matrix}
+	\begin{bmatrix}
+0.909091 &	-0.826446 &	-0.0826446\\	
+0 &	0.909091 &	-0.909091\\	
+0.909091 &	0.0826446 &	0.00826446	
+	\end{bmatrix}
+\end{matrix}
+\end{equation*}
+\end{itemize}
+\end{frame}
+%Problem end(3)
+
+% % % % % % % % % % % % % % % % % % % % % % % % % %	
+		
+\section{Results and Discussions}
+\begin{frame}
+\begin{itemize}
+       \item{Results(LU factorization)}
+       \begin{itemize}
+       \item Problem (a).\[
+       x^T =
+       \begin{bmatrix}
+       	0.272727 &
+       	0.454545 &
+       	0.0909091	
+       \end{bmatrix}
+       \]
+      Using LU decomposition, it took: 5 flops (5e-06 seconds) for the calculation.
+       \item Problem (b).\[
+              x^T =
+              \begin{bmatrix}
+              	1 &	2 & -0 &-11	
+              \end{bmatrix}
+              \]
+              Using LU decomposition, it took: 7 flops (7e-06 seconds) for the calculation.
+       \item Problem (c).\[
+                     x^T =
+                     \begin{bmatrix}
+                     	1.08264 &	
+                     	1.90909 &
+                     	1.99174
+                     \end{bmatrix}
+                     \]
+ Using LU decomposition, it took: 5 flops (5e-06 seconds) for the calculation.
+                     
+       \end{itemize}
+        \end{itemize}
+       \end{frame}
+       \begin{frame}
+       \begin{itemize}
+\item Result (Gauss Elimination with Inverse)
+       \begin {itemize}
+\item Problem (a).\[
+       x^T =
+       \begin{bmatrix}
+       	0.272727 &	
+       	0.454545 &	
+       	0.0909091	
+       \end{bmatrix}
+       \]
+Using the inverse of A to solve, it took: 6 flops (6e-06 seconds) for the calculation.
+\item Problem (b).\[
+       x^T =
+       \begin{bmatrix}
+       	1 &	
+       	2 &
+       	4.16334e-17 &	
+       	-1	
+       \end{bmatrix}
+       \]
+Using the inverse of A to solve, it took: 9 flops (9e-06 seconds) for the calculation.
+\item Problem (c).\[
+       x^T =
+       \begin{bmatrix}
+       	1.08264 &	
+       	1.90909	&
+       	1.99174	
+       \end{bmatrix}
+       \]
+Using the inverse of A to solve, it took: 5 flops (5e-06 seconds) for the calculation.
+     \end{itemize} 
+     \end{itemize}
+       \end{frame}
+ % % % % % % % % % % % % % % % % % % % % % % %
+\section{Sample code}
+\begin{frame}
+\begin{algorithm}[H]
+void Matrix::computeLU()\{\\
+  	double factor\;
+	\For{(int $i=0$; $i<$A.rows; $i++$)}{
+		\For{(int $j=0$; $j$<A.cols; $j++$)}{
+			\If{$i==j$}{
+				L.mat$[i][j]=1$\;
+			}
+			\Else{
+				L.mat$[i][j]=0$\;
+			}
+			U.mat$[i][j]$=A.mat$[i][j]$\;
+		}
+	}
+    
+\end{algorithm}
+\end{frame}
+
+\begin{frame}
+\begin{algorithm}[H]
+	\For{(int index$=0$; index$<$A.cols$-1$; index$++$)}{
+		\For{(int $i=$index$+1$; $i<$A.rows; $i++$)}{
+			factor = $-$U.mat[i][index]/U.mat[index][index]\;
+ 			\For{(int $j=0$; $j<$A.cols; $j++$)}{
+				U.mat$[i][j]$=factor*U.mat[index][$j$]+U.mat$[i][j]$\;
+				L.mat[$i$][index]=-factor;\;
+			}
+		}
+	}
+\}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}
+       \begin{algorithm}[H]
+       void Matrix::SolveLU()\{\\
+       $y$.cols = $1$\;
+       $x$.cols = $1$\;
+       \For{(int $i=0$; $i<$L.rows; $i++$)}{ 
+       		$y$.mat$[i][0]$=b.mat$[i][0]$\;
+       }
+       \For{(int $j=0$; $j<i$; $j++$)}{
+       		y.mat$[i][0] -= $L.mat$[i][j]*y$.mat$[j][0]$\;
+        	y.mat$[i][0] /= $L.mat$[i][i]$\; 
+       }
+       \end{algorithm}
+       \end{frame}
+       \begin{frame}
+       \begin{algorithm}[H]
+       \For{(int $i=$U.rows$-1$; $i>=0$; $i--$)}{
+        	$x$.mat$[i][0]$=$y$.mat$[i][0]$\;
+       }
+       \For{(int $j=$U.rows$-1$; $j>i$; $j--$)}{ 
+      		$x$.mat$[i][0] -=$ U.mat$[i][j]*x$.mat$[j][0]$\;
+       		$x$.mat$[i][0] /= $U.mat$[i][i]$\;
+       }
+       \}
+       \end{algorithm}
+\end{frame}	
+       
+       
+  \begin{frame}
+       \begin{algorithm}[H]
+       void Matrix::SolveInverse()\{\\
+       findinverse()\;
+       double tempsum = 0\;
+              	$y$.cols$=1$\;
+        	\For{(int $i=0$; $i<$A.rows; $i++$)}{
+               		\For{(int $j=0$; $j<$A.cols; $j++$)}{
+               		tempsum += Gauss.mat$[i][j$+A.cols]*b.mat$[j][0]$\;
+                    }
+                    
+      $y$.mat$[i][0]$=tempsum\;
+      tempsum = $0$;
+      }
+      \}
+       \end{algorithm}
+       \end{frame}
+       
+  \section{Acknowledgements}
+  \begin{frame}
+  \begin{center}
+ \begin{itemize}
+   \item Our Instructor Dr. Sharma\\
+         The unlimited support, teaching, and guidance.\\
+         
+   \item Collegues: for moral support and team work
+   
+ \end{itemize}
+ ~\\
+ Thank You ALL!\\
+ ~\\ 
+ Question ?????
+   \end{center}
+  \end{frame}
+\end{document}
+
+
+
